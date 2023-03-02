@@ -8,11 +8,11 @@ fn main() -> Result<(), Box<dyn Error>> {
     let path = Path::new("sample.csv");
 
     // Create a new CSV reader
-    let mut rdr = csv::Reader::from_path(path)?;
+    let mut rdr = csv::Reader::from_path(path).map_err(|e| format!("Error creating CSV reader: {}", e))?;
 
     // Iterate over each record in the CSV file
     for result in rdr.records() {
-        let record = result?;
+        let record = result.map_err(|e| format!("Error reading record: {}", e))?;
         println!("{:?}", record);
     }
 
