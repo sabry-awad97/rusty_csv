@@ -13,7 +13,25 @@ fn main() -> Result<(), Box<dyn Error>> {
     // Iterate over each record in the CSV file
     for result in rdr.records() {
         let record = result.map_err(|e| format!("Error reading record: {}", e))?;
-        println!("{:?}", record);
+
+        // Validate the record
+        if record.len() < 3 {
+            eprintln!("Invalid record: {:?}", record);
+            continue;
+        }
+
+        let name = &record[0];
+        let age = match record[1].parse::<i32>() {
+            Ok(n) if n >= 0 => n,
+            _ => {
+                eprintln!("Invalid age: {:?}", record);
+                continue;
+            }
+        };
+        let email = &record[2];
+
+        // Do something with the validated data
+        println!("Name: {}, Age: {}, Email: {}", name, age, email);
     }
 
     Ok(())

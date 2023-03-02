@@ -1,5 +1,5 @@
-ID,First Name,Last Name,Email,Phone Number,Department,Salary
-1,John,Smith,john.smith@company.com,(123)456-7890,Marketing,70000
-2,Jane,Doe,jane.doe@company.com,(234)567-8901,Sales,80000
-3,Bob,Johnson,bob.johnson@company.com,(345)678-9012,Engineering,90000
-4,Alice,Williams,alice.williams@company.com,(456)789-0123,Finance,100000
+Name,Age,Email
+Alice,25,alice@example.com
+Bob,30,bob@example.com
+Charlie,-10,charlie@example.com
+Dave,40,
