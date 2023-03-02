@@ -1,11 +1,16 @@
 extern crate csv;
 
+use std::env;
 use std::error::Error;
 use std::path::Path;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    // Path to the CSV file
-    let path = Path::new("sample.csv");
+    // Parse command-line arguments
+    let args: Vec<String> = env::args().collect();
+    let path = match args.get(1) {
+        Some(p) => Path::new(p),
+        None => Path::new("sample.csv"),
+    };
 
     // Create a new CSV reader
     let mut rdr = csv::Reader::from_path(path).map_err(|e| format!("Error creating CSV reader: {}", e))?;
@@ -15,7 +20,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let record = result.map_err(|e| format!("Error reading record: {}", e))?;
 
         // Validate the record
-        if record.len() < 3 {
+        if record.len() != 3 {
             eprintln!("Invalid record: {:?}", record);
             continue;
         }
